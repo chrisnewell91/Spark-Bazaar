@@ -1,0 +1,40 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.tabSize": 2,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "files.eol": "\n",
+  "editor.rulers": [100],
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/build": true
+  },
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "javascript.suggest.completeFunctionCalls": true,
+  "typescript.suggest.completeFunctionCalls": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "cursor.customCompletionProvider": true,
+  "cursor.showTooltipWithCompletions": true,
+  "cursor.showStatusBarIcon": true,
+  "cursor.autocompletionEnabled": true,
+  "cursor.codeSnippets": {
+    "Enable MCP Server Template": "import { Server } from '@modelcontextprotocol/sdk/server/index.js';\nimport { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';\nimport {\n  CallToolRequestSchema,\n  ErrorCode,\n  ListToolsRequestSchema,\n  McpError,\n} from '@modelcontextprotocol/sdk/types.js';\n\nclass MyMcpServer {\n  constructor() {\n    this.server = new Server(\n      {\n        name: 'my-mcp-server',\n        version: '0.1.0',\n      },\n      {\n        capabilities: {\n          tools: {},\n        },\n      }\n    );\n\n    this.setupToolHandlers();\n    \n    // Error handling\n    this.server.onerror = (error) => console.error('[MCP Error]', error);\n    process.on('SIGINT', async () => {\n      await this.server.close();\n      process.exit(0);\n    });\n  }\n\n  setupToolHandlers() {\n    this.server.setRequestHandler(ListToolsRequestSchema, async () => ({\n      tools: [\n        {\n          name: 'my_tool',\n          description: 'Description of my tool',\n          inputSchema: {\n            type: 'object',\n            properties: {\n              param1: {\n                type: 'string',\n                description: 'Description of param1',\n              },\n            },\n            required: ['param1'],\n          },\n        },\n      ],\n    }));\n\n    this.server.setRequestHandler(CallToolRequestSchema, async (request) => {\n      if (request.params.name === 'my_tool') {\n        return this.handleMyTool(request.params.arguments);\n      } else {\n        throw new McpError(\n          ErrorCode.MethodNotFound,\n          `Unknown tool: ${request.params.name}`\n        );\n      }\n    });\n  }\n\n  async handleMyTool(args) {\n    try {\n      // Implementation goes here\n      return {\n        content: [\n          {\n            type: 'text',\n            text: 'Result from my_tool',\n          },\n        ],\n      };\n    } catch (error) {\n      console.error('Error in handleMyTool:', error);\n      throw error;\n    }\n  }\n\n  async run() {\n    const transport = new StdioServerTransport();\n    await this.server.connect(transport);\n    console.error('MCP server running on stdio');\n  }\n}\n\n// Run the server when this script is executed directly\nconst server = new MyMcpServer();\nserver.run().catch(console.error);"
+  }
+}

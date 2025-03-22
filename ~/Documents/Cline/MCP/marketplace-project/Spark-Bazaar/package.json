@@ -1,0 +1,39 @@
+{
+  "name": "spark-bazaar",
+  "version": "0.1.0",
+  "description": "AI Code Generation Marketplace for MCP servers and AI coding tools",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "start:ui-generator": "node ./mcp-templates/ui-component-generator.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrisnewell91/Spark-Bazaar.git"
+  },
+  "keywords": [
+    "mcp",
+    "ai",
+    "marketplace",
+    "code-generation",
+    "ai-tools"
+  ],
+  "author": "Chris Newell",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chrisnewell91/Spark-Bazaar/issues"
+  },
+  "homepage": "https://github.com/chrisnewell91/Spark-Bazaar#readme",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.48.0",
+    "prettier": "^3.0.3"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

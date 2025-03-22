@@ -1,0 +1,20 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "mikestead.dotenv",
+    "saoudrizwan.cursor-dev",
+    "streetsidesoftware.code-spell-checker",
+    "yzhang.markdown-all-in-one",
+    "wayou.vscode-todo-highlight",
+    "github.copilot",
+    "github.copilot-chat",
+    "bradlc.vscode-tailwindcss",
+    "gruntfuggly.todo-tree",
+    "christian-kohler.npm-intellisense",
+    "eamodio.gitlens",
+    "ms-azuretools.vscode-docker",
+    "visualstudioexptteam.vscodeintellicode"
+  ],
+  "unwantedRecommendations": []
+}
